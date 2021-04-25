@@ -177,7 +177,6 @@
 
 <script>
 import loading from "@components/Loading.vue";
-import ProductDataService from "@services/ProductDataService";
 
 export default {
   components: {
@@ -319,15 +318,15 @@ export default {
           });
         }
 
-        ProductDataService.update(formData)
-          .then((response) => {
-            vm.$toast("Product successfully updated.", "success");
-            vm.$router.push("/dashboard/products");
-          })
-          .catch((e) => {
-            vm.$toast(e, "error");
-            vm.show_loading = false;
-          });
+        // ProductDataService.update(formData)
+        //   .then((response) => {
+        //     vm.$toast("Product successfully updated.", "success");
+        //     vm.$router.push("/dashboard/products");
+        //   })
+        //   .catch((e) => {
+        //     vm.$toast(e, "error");
+        //     vm.show_loading = false;
+        //   });
       }
     },
 

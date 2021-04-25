@@ -1,3 +1,11 @@
+# Node modules
+node_modules
+package-lock.json
+public
+
+# Adonis directory for storing tmp files
+tmp
+
 # Logs
 logs
 *.log

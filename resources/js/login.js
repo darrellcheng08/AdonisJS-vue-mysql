@@ -3,13 +3,11 @@ window.Vue = require("vue");
 import * as VeeValidate from 'vee-validate';
 import VueCookie from "vue-cookie";
 import axios from "axios";
+import store from './store/index'
 import vuetify from '@js/plugins/vuetify';
-import Login from "@auth/login";
-
-import { router, VueRouter } from "@js/auth-routes";
+import router from "@routes/auth";
 
 Vue.use(VueCookie);
-Vue.use(VueRouter);
 Vue.use(VeeValidate);
 
 Vue.config.productionTip = false;
@@ -21,13 +19,9 @@ router.afterEach((to, from) => {
   }
 });
 
-new Vue({
+const app = new Vue({
   vuetify,
   router,
+  store,
   el: "#app",
 });
-
-new Vue({
-  router,
-  render: (h) => h(Login),
-}).$mount("#app");

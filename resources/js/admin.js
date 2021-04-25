@@ -7,26 +7,28 @@ import VueCookie from "vue-cookie";
 import vuetify from '@js/plugins/vuetify';
 import * as VeeValidate from 'vee-validate';
 import ToastSnackBar from "@components/toast-snackbar";
-// import { router, VueRouter } from "@js/dashboard-routes";
+import router from "@routes/admin";
 
-// Vue.use(VueRouter);
 Vue.use(VeeValidate);
 Vue.use(VueCookie);
 Vue.use(ToastSnackBar);
-
-let token = document.head.querySelector('meta[name="csrf-token"]');
 
 try {
   window.$ = window.jQuery = require("jquery");
 } catch (e) {}
 
-window.axios = _axios.create({
-  baseURL: window.location.origin + "/api",
-  headers: {
-    "X-Requested-With": "XMLHttpRequest",
-    "X-CSRF-TOKEN": token.content,
-  },
-});
+let token = document.head.querySelector('meta[name="csrf-token"]');
+if (token) {
+  window.axios = _axios.create({
+    baseURL: window.location.origin + "/api",
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+      "X-CSRF-TOKEN": token.content,
+    },
+  });
+} else {
+  console.error('CSRF token not found.');
+}
 
 (async function() {
   if (!VueCookie.get("api_token")) {
@@ -61,7 +63,6 @@ import index from "@admin/Index.vue";
 
 const app = new Vue({
   vuetify : vuetify,
-  router,
   render: h => h(index),
   el: "#app",
 });

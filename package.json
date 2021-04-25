@@ -5,8 +5,13 @@
   "description": "The fullstack application boilerplate for Adonisjs",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "node ace test"
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "keywords": [
     "adonisjs",
@@ -16,8 +21,8 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@adonisjs/ace": "^11.0.0",
-    "@adonisjs/auth": "^3.0.7",
+    "@adonisjs/ace": "^5.0.8",
+    "@adonisjs/auth": "^3.2.0",
     "@adonisjs/bodyparser": "~2.0.9",
     "@adonisjs/cors": "^1.0.7",
     "@adonisjs/fold": "^4.0.9",
@@ -25,9 +30,35 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.1.3",
     "@adonisjs/session": "^1.0.27",
-    "@adonisjs/shield": "^1.0.8"
+    "@adonisjs/shield": "^1.0.8",
+    "regenerator-runtime": "^0.13.7",
+    "vee-validate": "^2.1.7",
+    "vue": "^2.6.12",
+    "vue-cookie": "^1.1.4",
+    "vue-route-generator": "^1.0.0",
+    "vue-router": "^3.5.1",
+    "vuetify": "^2.4.11",
+    "vuex": "^3.6.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@mdi/font": "^5.9.55",
+    "axios": "^0.21.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^3.5.2",
+    "jquery": "^3.2",
+    "laravel-mix": "^5.0.1",
+    "lodash": "^4.17.19",
+    "material-design-icons-iconfont": "^6.1.0",
+    "mysql": "^2.18.1",
+    "popper.js": "^1.12",
+    "postcss": "^8.2.12",
+    "resolve-url-loader": "^2.3.1",
+    "sass": "^1.20.1",
+    "sass-loader": "^8.0.0",
+    "vue": "^2.5.17",
+    "vue-loader": "^15.9.6",
+    "vue-template-compiler": "^2.6.10"
+  },
   "autoload": {
     "App": "./app"
   }

@@ -102,7 +102,6 @@
 
 <script>
 import loading from "@components/Loading.vue";
-import ProductDataService from "@services/ProductDataService";
 
 export default {
   components: { loading },
@@ -146,17 +145,17 @@ export default {
     async deleteItem() {
       let vm = this;
       vm.show_loading = true;
-      ProductDataService.delete(vm.form.id)
-        .then((response) => {
-          vm.$toast("Product successfully deleted.", "success");
-          await vm.getProducts();
-          vm.dialog = false;
-          vm.show_loading = false;
-        })
-        .catch((e) => {
-          vm.$toast(e, "error");
-          vm.show_loading = false;
-        });
+      // ProductDataService.delete(vm.form.id)
+      //   .then((response) => {
+      //     vm.$toast("Product successfully deleted.", "success");
+      //     await vm.getProducts();
+      //     vm.dialog = false;
+      //     vm.show_loading = false;
+      //   })
+      //   .catch((e) => {
+      //     vm.$toast(e, "error");
+      //     vm.show_loading = false;
+      //   });
     },
 
     async filterData() {
@@ -168,13 +167,13 @@ export default {
 
     async getProducts() {
       let vm = this;
-      ProductDataService.getAll()
-        .then((response) => {
-          vm.products = response.data;
-        })
-        .catch((e) => {
-          vm.$toast(e, "error");
-        });
+      // ProductDataService.getAll()
+      //   .then((response) => {
+      //     vm.products = response.data;
+      //   })
+      //   .catch((e) => {
+      //     vm.$toast(e, "error");
+      //   });
     },
 
     async getCategory() {

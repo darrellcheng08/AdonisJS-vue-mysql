@@ -175,7 +175,6 @@
 
 <script>
 import loading from "@components/Loading.vue";
-import ProductDataService from "@services/ProductDataService";
 
 export default {
   components: {
@@ -289,15 +288,15 @@ export default {
           form_data.append(`images[${key}]`, image);
         });
 
-        ProductDataService.create(form_data)
-          .then((response) => {
-            vm.$toast("Product successfully added!", "success");
-            vm.$router.push("/dashboard/products");
-          })
-          .catch((e) => {
-            vm.$toast(e, "error");
-            vm.show_loading = false;
-          });
+        // ProductDataService.create(form_data)
+        //   .then((response) => {
+        //     vm.$toast("Product successfully added!", "success");
+        //     vm.$router.push("/dashboard/products");
+        //   })
+        //   .catch((e) => {
+        //     vm.$toast(e, "error");
+        //     vm.show_loading = false;
+        //   });
       }
     },
 

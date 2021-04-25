@@ -14,6 +14,21 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
+
 const Route = use('Route')
 
-Route.on('/').render('welcome')
+// DISPLAYING OF LOGIN PAGE
+Route.on('/').render('auth.login')
+Route.on('/login').render('auth.login')
+
+// LOGIN AND LOGOUT CONTROLLER ROUTES
+Route.post('/login', 'LoginController.login')
+Route.get('/logout', 'LoginController.logout')
+
+// CONTROLLER ROUTES
+Route.group(() => {
+    Route.get('/products', 'ProductController.get')
+    Route.get('/search', 'ProductController.search')
+}).prefix('api')
+
+Route.any('*', ({ view }) => view.render('admin.dashboard'))
