@@ -8,6 +8,7 @@ import vuetify from '@js/plugins/vuetify';
 import * as VeeValidate from 'vee-validate';
 import ToastSnackBar from "@components/toast-snackbar";
 import router from "@routes/admin";
+import store from './store/index'
 
 Vue.use(VeeValidate);
 Vue.use(VueCookie);
@@ -35,6 +36,7 @@ if (token) {
     window.location = "/logout";
     return;
   }
+
   await axios.interceptors.request.use((config) => {
     if (VueCookie.get("api_token") == "undefined") {
       window.location = "/logout";
@@ -43,26 +45,28 @@ if (token) {
     config.headers["Authorization"] = "Bearer " + VueCookie.get("api_token");
     return config;
   });
-  await axios.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    async (error) => {
-      if (error.response.status === 401) {
-        await axios.get("/logout");
-      } else if (error.response.status === 403) {
-        location.href = "/forbidden";
-      } else if (error.response.status === 404) {
-        router.replace("/not-found");
-      }
-    }
-  );
+
+  // await axios.interceptors.response.use(
+  //   (response) => {
+  //     return response;
+  //   },
+  //   async (error) => {
+  //     console.log(error.data);
+  //     return;
+  //     if (error.response.status === 401) {
+  //       await axios.get("/logout");
+  //     } else if (error.response.status === 403) {
+  //       location.href = "/forbidden";
+  //     } else if (error.response.status === 404) {
+  //       router.replace("/not-found");
+  //     }
+  //   }
+  // );
 })();
 
-import index from "@admin/Index.vue";
-
 const app = new Vue({
-  vuetify : vuetify,
-  render: h => h(index),
+  vuetify,
+  router,
+  store,
   el: "#app",
 });

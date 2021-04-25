@@ -83,7 +83,7 @@
                         <v-col cols="6">
                           <VCheckbox
                             color="anchor"
-                            v-model="formData.remember_token"
+                            v-model="formData.remember_me"
                             class="ma-0 pt-0"
                             hide-details
                           >
@@ -174,22 +174,30 @@ export default {
       const valid = await vm.$validator.validateAll();
       if (valid) {
         vm.loading = true;
-        const { data } = await axios.post("/login", vm.formData);
         vm.disabled = true;
-        vm.alert = {
-          value: true,
-          text: data.text,
-          color: data.color,
-        };
-        if (data.color != "error") {
-          vm.$cookie.set("api_token", data.api_token);
-          setTimeout(() => {
-            window.location = "/dashboard/products";
-          }, 500);
-        } else {
-          vm.disabled = false;
-          vm.loading = false;
-        }
+        await axios
+          .post("/login", vm.formData)
+          .then((response) => {
+            vm.$cookie.set("api_token", response.api_token);
+            vm.alert = {
+              value: true,
+              text: response.data.message,
+              color: "success",
+            };
+            setTimeout(() => {
+              vm.$router.push("/admin/products");
+            }, 500);
+          })
+          .catch((error) => {
+            // display error notification
+            vm.alert = {
+              value: true,
+              text: error.response.data.message,
+              color: "error",
+            };
+            vm.disabled = false;
+            vm.loading = false;
+          });
       } else {
         vm.disabled = false;
         vm.loading = false;
@@ -203,6 +211,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .glass {
   background: #a6a6a654 !important;

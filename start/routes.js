@@ -18,8 +18,8 @@
 const Route = use('Route')
 
 // DISPLAYING OF LOGIN PAGE
-Route.on('/').render('auth.login')
-Route.on('/login').render('auth.login')
+Route.on('/').render('auth.login').middleware(['guest'])
+Route.on('/login').render('auth.login').middleware(['guest'])
 
 // LOGIN AND LOGOUT CONTROLLER ROUTES
 Route.post('/login', 'LoginController.login')
@@ -29,6 +29,6 @@ Route.get('/logout', 'LoginController.logout')
 Route.group(() => {
     Route.get('/products', 'ProductController.get')
     Route.get('/search', 'ProductController.search')
-}).prefix('api')
+}).prefix('api').middleware(['auth'])
 
 Route.any('*', ({ view }) => view.render('admin.dashboard'))
